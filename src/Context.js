@@ -7,14 +7,21 @@ function ContextProvider({ children }) {
 
   const [albums, setAlbums] = useState([])
   const [selectedAlbumId, setSelectedAlbumId] = useState(null)
+  const [selectedAlbumName, setSelectedAlbumName] = useState(null)
 
   const [songs, setSongs] = useState([])
   const [options, setOptions] = useState([])
   const [lyrics, setLyrics] = useState("")
 
-  function startGame(albumId) {
+  const [roundCount, setRoundCount] = useState(1)
+  const [correctCount, setCorrectCount] = useState(0)
+
+  const ROUNDS = 5
+
+  function startGame(album) {
     setGameState("Quizz")
-    setSelectedAlbumId(albumId)
+    setSelectedAlbumId(album.idAlbum)
+    setSelectedAlbumName(album.strAlbum)
   }
 
   /* Get albums when mounted */
@@ -66,13 +73,16 @@ function ContextProvider({ children }) {
         options.filter((opt) => opt.correct)
       )
     }
-  }, [songs])
+  }, [songs, roundCount])
 
   /* Get random lyrics from the correct song */
   useEffect(() => {
     if (options.length > 0) {
       const fetchLyrics = async () => {
-        const correctSong = options.filter((opt) => opt.correct)[0].song
+        const correctSong = options
+          .filter((opt) => opt.correct)[0]
+          .song.split(" ")
+          .join("_")
         console.log("correcta", correctSong)
         const url = `https://api.lyrics.ovh/v1/Taylor_Swift/${correctSong}`
         try {
@@ -106,13 +116,18 @@ function ContextProvider({ children }) {
 
   function correctAnswer() {
     alert("Yay! Correct")
-    gameOver()
+    nextRound()
+    setCorrectCount((prev) => prev + 1)
   }
   function incorrectAnswer() {
     alert("Incorrect :(")
-    gameOver()
+    nextRound()
   }
 
+  function nextRound() {
+    roundCount < ROUNDS ? setRoundCount((prev) => prev + 1) : gameOver()
+    console.log(roundCount)
+  }
   function gameOver() {
     setGameState("Over")
     setSelectedAlbumId(null)
@@ -123,6 +138,8 @@ function ContextProvider({ children }) {
     setSongs([])
     setOptions([])
     setLyrics("")
+    setRoundCount(1)
+    setCorrectCount(0)
   }
 
   return (
@@ -135,6 +152,7 @@ function ContextProvider({ children }) {
         setAlbums,
         selectedAlbumId,
         setSelectedAlbumId,
+        selectedAlbumName,
         songs,
         setSongs,
         options,
@@ -144,6 +162,9 @@ function ContextProvider({ children }) {
         correctAnswer,
         incorrectAnswer,
         restartGame,
+        roundCount,
+        ROUNDS,
+        correctCount,
         gameOver,
       }}
     >

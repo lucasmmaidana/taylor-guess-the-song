@@ -6,7 +6,7 @@ function AlbumCard({ album }) {
   const { startGame } = useContext(Context)
 
   return (
-    <button className="album-card" onClick={() => startGame(album.idAlbum)}>
+    <button className="album-card" onClick={() => startGame(album)}>
       <img
         className="album--cover"
         src={album.strAlbumThumb}
