@@ -15,7 +15,7 @@ img {
   gap: 1em;
 }
 
-.albums-list .card {
+.albums-list .album-card {
   max-width: 10em;
 }
 

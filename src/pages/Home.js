@@ -2,6 +2,8 @@ import React, { useContext } from "react"
 
 import { Context } from "../Context"
 
+import AlbumCard from "../components/AlbumCard"
+
 function Home() {
   const { albums, setAlbums } = useContext(Context)
 
@@ -21,17 +23,8 @@ function Home() {
       <div className="albums-list">
         {albums
           .filter((album) => !noAlbums.includes(album.strAlbum))
-          .map((album) => (
-            <button className="card" key={album.idAlbum}>
-              <img
-                className="album--cover"
-                src={album.strAlbumThumb}
-                alt={album.strAlbum + " cover"}
-              />
-              <div className="album--info">
-                <h3 className="album--title">{album.strAlbum}</h3>
-              </div>
-            </button>
+          .map((item) => (
+            <AlbumCard key={item.idAlbum} album={item} />
           ))}
       </div>
     </div>
