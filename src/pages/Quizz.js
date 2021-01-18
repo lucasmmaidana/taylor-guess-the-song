@@ -18,7 +18,12 @@ function Quizz() {
     incorrectAnswer,
     roundCount,
     ROUNDS,
+    isLyricsLoading,
   } = useContext(Context)
+
+  const optionsList = options.map((song) => (
+    <Option key={song.song} song={song} />
+  ))
 
   return (
     <div className="quizz main-container">
@@ -32,11 +37,7 @@ function Quizz() {
       </div>
       <div class="options-container">
         <h3>Guess the song</h3>
-        <div className="options">
-          {options.map((song) => (
-            <Option key={song.song} song={song} />
-          ))}
-        </div>
+        <div className="options">{!isLyricsLoading && optionsList}</div>
       </div>
     </div>
   )

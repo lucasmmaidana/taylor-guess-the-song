@@ -15,6 +15,9 @@ function ContextProvider({ children }) {
   const [roundCount, setRoundCount] = useState(1)
   const [correctCount, setCorrectCount] = useState(0)
 
+  const [retryRandomOptions, setRetryRandomOptions] = useState(0)
+  const [isLyricsLoading, setIsLyricsLoading] = useState(true)
+
   const ROUNDS = 5
 
   function startGame(album) {
@@ -48,6 +51,7 @@ function ContextProvider({ children }) {
   /* Get random options when songs are fetched */
   useEffect(() => {
     console.log("starts randomOptions ", songs)
+    setOptions([])
     if (songs.length > 0) {
       console.log("redner songs 3", songs)
       var randoms = []
@@ -76,11 +80,12 @@ function ContextProvider({ children }) {
         options.filter((opt) => opt.correct)
       )
     }
-  }, [songs, roundCount])
+  }, [songs, roundCount, retryRandomOptions])
 
   /* Get random lyrics from the correct song */
   useEffect(() => {
     if (options.length > 0) {
+      setIsLyricsLoading(true)
       const fetchLyrics = async () => {
         const correctSong = options
           .filter((opt) => opt.correct)[0]
@@ -92,26 +97,35 @@ function ContextProvider({ children }) {
           const res = await fetch(url)
           const data = await res.json()
           let lyricsPhrases = data.lyrics
-          lyricsPhrases = lyricsPhrases
-            .split("\n")
-            .filter((line) => line !== "")
-          console.log(lyricsPhrases)
-          const randomLine = Math.floor(
-            /* TODO que no sea la ultima linea */
-            Math.random() * (lyricsPhrases.length - 1) + 1
-          )
-          console.log(
-            "line ",
-            randomLine,
-            " line1 ",
-            lyricsPhrases[randomLine],
-            " line2 ",
-            lyricsPhrases[randomLine + 1]
-          )
-          setLyrics([lyricsPhrases[randomLine], lyricsPhrases[randomLine + 1]])
-          console.log("laslyric", lyrics)
+          if (lyricsPhrases == "") {
+            setRetryRandomOptions((prev) => prev + 1)
+          } else {
+            setIsLyricsLoading(false)
+            lyricsPhrases = lyricsPhrases
+              .split("\n")
+              .filter((line) => line !== "")
+            console.log(lyricsPhrases)
+            const randomLine = Math.floor(
+              /* TODO que no sea la ultima linea */
+              Math.random() * (lyricsPhrases.length - 1)
+            )
+            console.log(
+              "line ",
+              randomLine,
+              " line1 ",
+              lyricsPhrases[randomLine],
+              " line2 ",
+              lyricsPhrases[randomLine + 1]
+            )
+            setLyrics([
+              lyricsPhrases[randomLine],
+              lyricsPhrases[randomLine + 1],
+            ])
+            console.log("laslyric", lyrics)
+          }
         } catch (err) {
           console.error(err)
+          setRetryRandomOptions((prev) => prev + 1)
         }
       }
       fetchLyrics()
@@ -168,6 +182,7 @@ function ContextProvider({ children }) {
         ROUNDS,
         correctCount,
         gameOver,
+        isLyricsLoading,
       }}
     >
       {children}
