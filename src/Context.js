@@ -6,8 +6,7 @@ function ContextProvider({ children }) {
   const [gameState, setGameState] = useState("Home")
 
   const [albums, setAlbums] = useState([])
-  const [selectedAlbumId, setSelectedAlbumId] = useState(null)
-  const [selectedAlbumName, setSelectedAlbumName] = useState(null)
+  const [selectedAlbum, setSelectedAlbum] = useState({})
 
   const [songs, setSongs] = useState([])
   const [options, setOptions] = useState([])
@@ -20,8 +19,11 @@ function ContextProvider({ children }) {
 
   function startGame(album) {
     setGameState("Quizz")
-    setSelectedAlbumId(album.idAlbum)
-    setSelectedAlbumName(album.strAlbum)
+    setSelectedAlbum({
+      id: album.idAlbum,
+      name: album.strAlbum,
+      imgUrl: album.strAlbumThumb,
+    })
   }
 
   /* Get albums when mounted */
@@ -35,13 +37,13 @@ function ContextProvider({ children }) {
 
   /* Get songs when an album is selected */
   useEffect(() => {
-    selectedAlbumId &&
+    selectedAlbum.id &&
       fetch(
-        `https://theaudiodb.com/api/v1/json/1/track.php?m=${selectedAlbumId}`
+        `https://theaudiodb.com/api/v1/json/1/track.php?m=${selectedAlbum.id}`
       )
         .then((res) => res.json())
         .then((data) => setSongs(data.track))
-  }, [selectedAlbumId])
+  }, [selectedAlbum])
 
   /* Get random options when songs are fetched */
   useEffect(() => {
@@ -50,6 +52,7 @@ function ContextProvider({ children }) {
       console.log("redner songs 3", songs)
       var randoms = []
       for (var i = 0; i < 3; i++) {
+        /* TODO que sean los 3 distintos */
         randoms.push(Math.floor(Math.random() * songs.length) + 0)
       }
       setOptions([
@@ -94,6 +97,7 @@ function ContextProvider({ children }) {
             .filter((line) => line !== "")
           console.log(lyricsPhrases)
           const randomLine = Math.floor(
+            /* TODO que no sea la ultima linea */
             Math.random() * (lyricsPhrases.length - 1) + 1
           )
           console.log(
@@ -130,11 +134,11 @@ function ContextProvider({ children }) {
   }
   function gameOver() {
     setGameState("Over")
-    setSelectedAlbumId(null)
   }
 
   function restartGame() {
     setGameState("Home")
+    setSelectedAlbum({})
     setSongs([])
     setOptions([])
     setLyrics("")
@@ -150,9 +154,7 @@ function ContextProvider({ children }) {
         setGameState,
         albums,
         setAlbums,
-        selectedAlbumId,
-        setSelectedAlbumId,
-        selectedAlbumName,
+        selectedAlbum,
         songs,
         setSongs,
         options,

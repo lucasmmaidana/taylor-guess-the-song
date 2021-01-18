@@ -18,15 +18,24 @@ function Home() {
   ]
 
   return (
-    <div className="home">
-      <h2>Choose your favorite album</h2>
-      <div className="albums-list">
-        {albums
-          .filter((album) => !noAlbums.includes(album.strAlbum))
-          .map((item) => (
-            <AlbumCard key={item.idAlbum} album={item} />
-          ))}
-      </div>
+    <div className="home main-container">
+      <header>
+        <h1>
+          How well do you know <br />
+          <mark>Taylor Swift</mark>’s songs?
+        </h1>
+        <h2>Let's find out!</h2>
+      </header>
+      <main>
+        <h3>Choose your favorite album</h3>
+        <div className="albums-list">
+          {albums
+            .filter((album) => !noAlbums.includes(album.strAlbum))
+            .map((item) => (
+              <AlbumCard key={item.idAlbum} album={item} />
+            ))}
+        </div>
+      </main>
     </div>
   )
 }

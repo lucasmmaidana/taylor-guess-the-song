@@ -8,7 +8,7 @@ function Option({ song }) {
       onClick={() => {
         song.correct ? correctAnswer() : incorrectAnswer()
       }}
-      className="song--title"
+      className="option"
     >
       {song.song}
     </button>
