@@ -51,30 +51,35 @@ function ContextProvider({ children }) {
   /* Get random options when songs are fetched */
   useEffect(() => {
     console.log("starts randomOptions ", songs)
-    setOptions([])
+
     if (songs.length > 0) {
-      console.log("redner songs 3", songs)
       var randoms = []
-      for (var i = 0; i < 3; i++) {
-        /* TODO que sean los 3 distintos */
-        randoms.push(Math.floor(Math.random() * songs.length) + 0)
+      while (randoms.length < 3) {
+        var r = Math.floor(Math.random() * songs.length)
+        if (randoms.indexOf(r) === -1) randoms.push(r)
       }
-      setOptions([
+
+      console.log("RANDOMS ", randoms)
+
+      const initialOptions = [
         { song: songs[randoms[0]].strTrack, correct: true },
         { song: songs[randoms[1]].strTrack, correct: false },
         { song: songs[randoms[2]].strTrack, correct: false },
-      ])
-      setOptions((prev) => {
-        const shuffled = prev
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1))
-          ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-        }
-        return shuffled
-      })
+      ]
+
+      let shuffledOptions = initialOptions
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[shuffledOptions[i], shuffledOptions[j]] = [
+          shuffledOptions[j],
+          shuffledOptions[i],
+        ]
+      }
+
+      setOptions(shuffledOptions)
 
       console.log(
-        "options",
+        "options ",
         options,
         "la correcta ",
         options.filter((opt) => opt.correct)
@@ -99,6 +104,7 @@ function ContextProvider({ children }) {
           let lyricsPhrases = data.lyrics
           if (lyricsPhrases == "") {
             setRetryRandomOptions((prev) => prev + 1)
+            console.log("LYRICS VACIAS, REINTENTAR CON NUEVAS OPCIONES")
           } else {
             setIsLyricsLoading(false)
             lyricsPhrases = lyricsPhrases
