@@ -6,13 +6,17 @@ function Option({
   answeredIncorrect,
   isDisabled,
   isAnswered,
+  selectedOption,
 }) {
   const answeredState = () => {
     if (isAnswered) {
       if (song.correct) {
         return "correct"
-      } else {
+      }
+      if (song.song == selectedOption) {
         return "incorrect"
+      } else {
+        return "disabled"
       }
     }
   }
@@ -20,7 +24,7 @@ function Option({
   return (
     <button
       onClick={() => {
-        song.correct ? answeredCorrect() : answeredIncorrect()
+        song.correct ? answeredCorrect(song.song) : answeredIncorrect(song.song)
       }}
       className={`option ${answeredState()}`}
       disabled={isDisabled}

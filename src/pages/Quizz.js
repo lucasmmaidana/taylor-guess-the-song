@@ -21,6 +21,7 @@ function Quizz() {
 
   const [optionsTitleText, setOptionsTitleText] = useState("")
   const [isAnswered, setIsAnswered] = useState(false)
+  const [selectedOption, setSelectedOption] = useState("")
 
   const optionsList = options.map((song) => (
     <Option
@@ -30,21 +31,25 @@ function Quizz() {
       song={song}
       answeredCorrect={answeredCorrect}
       answeredIncorrect={answeredIncorrect}
+      selectedOption={selectedOption}
     />
   ))
 
-  function answeredCorrect() {
+  function answeredCorrect(selected) {
     setIsAnswered(true)
+    setSelectedOption(selected)
     setCorrectCount((prev) => prev + 1)
     setOptionsTitleText("Correct! 😄")
   }
-  function answeredIncorrect() {
+  function answeredIncorrect(selected) {
     setIsAnswered(true)
+    setSelectedOption(selected)
     setOptionsTitleText("That's not correct! 😕")
   }
 
   useEffect(() => {
     setIsAnswered(false)
+    setSelectedOption("")
   }, [roundCount])
 
   useEffect(() => {
@@ -53,11 +58,23 @@ function Quizz() {
     }
   }, [isLyricsLoading])
 
-  const nextSongButton = (
-    <button className="button-primary" onClick={() => nextRound()}>
-      Next song
-    </button>
-  )
+  const theBottom = useRef(null)
+  const scrollToBottom = () => {
+    if (isAnswered) {
+      setTimeout(() => {
+        theBottom.current.scrollIntoView({ behavior: "smooth" })
+      }, 150)
+    }
+  }
+  useEffect(scrollToBottom, [isAnswered])
+
+  const NextSongButton = () => {
+    return (
+      <button className="button-primary" onClick={() => nextRound()}>
+        Next song
+      </button>
+    )
+  }
 
   return (
     <div className="quizz main-container">
@@ -73,7 +90,10 @@ function Quizz() {
         <h3>{!isLyricsLoading && optionsTitleText}</h3>
         <div className="options">
           {!isLyricsLoading && optionsList}
-          {isAnswered && nextSongButton}
+          <div className={`next-song-container ${isAnswered && "expanded"}`}>
+            {isAnswered && <NextSongButton />}
+          </div>
+          <div ref={theBottom}></div>
         </div>
       </div>
     </div>
