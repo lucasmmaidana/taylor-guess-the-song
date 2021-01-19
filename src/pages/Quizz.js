@@ -54,7 +54,7 @@ function Quizz() {
 
   useEffect(() => {
     if (!isLyricsLoading) {
-      setOptionsTitleText("Guess the lyrics")
+      setOptionsTitleText("Guess the song")
     }
   }, [isLyricsLoading])
 

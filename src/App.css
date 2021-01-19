@@ -138,6 +138,11 @@ img {
   transition: transform 0.2s cubic-bezier(0.25, 1, 0.3, 1), -webkit-transform 0.2s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
+.albums-list .album-card .image-container .album-cover {
+  height: auto;
+  width: 100%;
+}
+
 .albums-list .album-card .image-container .album-cover-shadow {
   position: absolute;
   top: 7px;

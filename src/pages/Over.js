@@ -6,7 +6,12 @@ import { Context } from "../Context"
 
 function Over() {
   const { restartGame, correctCount, ROUNDS } = useContext(Context)
-
+  const congratsText = () => {
+    if (correctCount < ROUNDS / 2) {
+      return "Maybe try again?"
+    }
+    return "You did great!"
+  }
   return (
     <div className="over main-container">
       <div>
@@ -14,7 +19,7 @@ function Over() {
         <header>
           <AlbumChip />
         </header>
-        <h1>You did great!</h1>
+        <h1>{congratsText()}</h1>
         <h2>
           You guessed{" "}
           <mark>

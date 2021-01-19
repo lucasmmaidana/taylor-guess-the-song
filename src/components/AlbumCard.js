@@ -13,6 +13,8 @@ function AlbumCard({ album }) {
           className="album-cover"
           src={album.strAlbumThumb}
           alt={album.strAlbum + " cover"}
+          height="153"
+          width="153"
         />
       </div>
       <div className="album--info">
