@@ -1,7 +1,7 @@
 import React from "react"
-function Loader() {
+function LyricsLoader() {
   return (
-    <div class="lyrics-loader">
+    <div class="loader">
       <div class="line long"></div>
       <div class="line short"></div>
       <div class="line long"></div>
@@ -10,4 +10,4 @@ function Loader() {
   )
 }
 
-export default Loader
+export default LyricsLoader

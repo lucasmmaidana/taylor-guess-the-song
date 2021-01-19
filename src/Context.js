@@ -6,6 +6,7 @@ function ContextProvider({ children }) {
   const [gameState, setGameState] = useState("Home")
 
   const [albums, setAlbums] = useState([])
+  const [isAlbumsLoading, setIsAlbumsLoading] = useState(true)
   const [selectedAlbum, setSelectedAlbum] = useState({})
 
   const [songs, setSongs] = useState([])
@@ -35,7 +36,10 @@ function ContextProvider({ children }) {
       `https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=taylor_swift`
     )
       .then((res) => res.json())
-      .then((data) => setAlbums(data.album))
+      .then((data) => {
+        setAlbums(data.album)
+        setIsAlbumsLoading(false)
+      })
   }, [])
 
   /* Get songs when an album is selected */
@@ -113,7 +117,6 @@ function ContextProvider({ children }) {
               .filter((line) => line !== "")
             console.log(lyricsPhrases)
             const randomLine = Math.floor(
-              /* TODO que no sea la ultima linea */
               Math.random() * (lyricsPhrases.length - 1)
             )
             console.log(
@@ -177,6 +180,7 @@ function ContextProvider({ children }) {
         setGameState,
         albums,
         setAlbums,
+        isAlbumsLoading,
         selectedAlbum,
         songs,
         setSongs,

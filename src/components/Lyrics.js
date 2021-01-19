@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 
 import { Context } from "../Context"
-import Loader from "../components/Loader"
+import Loader from "../components/LyricsLoader"
 
 function Lyrics({ lines }) {
   const { isLyricsLoading } = useContext(Context)

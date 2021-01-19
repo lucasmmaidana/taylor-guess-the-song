@@ -3,9 +3,10 @@ import React, { useContext } from "react"
 import { Context } from "../Context"
 
 import AlbumCard from "../components/AlbumCard"
+import Loader from "../components/AlbumsLoader"
 
 function Home() {
-  const { albums, setAlbums } = useContext(Context)
+  const { albums, setAlbums, isAlbumsLoading } = useContext(Context)
 
   const noAlbums = [
     "Greatest Hits",
@@ -29,11 +30,13 @@ function Home() {
       <main>
         <h3>Choose your favorite album</h3>
         <div className="albums-list">
-          {albums
-            .filter((album) => !noAlbums.includes(album.strAlbum))
-            .map((item) => (
-              <AlbumCard key={item.idAlbum} album={item} />
-            ))}
+          {isAlbumsLoading ? (
+            <Loader />
+          ) : (
+            albums
+              .filter((album) => !noAlbums.includes(album.strAlbum))
+              .map((item) => <AlbumCard key={item.idAlbum} album={item} />)
+          )}
         </div>
       </main>
     </div>

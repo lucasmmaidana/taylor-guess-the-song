@@ -89,6 +89,27 @@ img {
   row-gap: 1.5em;
 }
 
+.albums-list .album-placeholder {
+  height: 10em;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 5px;
+  -webkit-animation: 1s ease-in-out pulsing infinite;
+          animation: 1s ease-in-out pulsing infinite;
+}
+
+@-webkit-keyframes pulsing {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulsing {
+  50% {
+    opacity: 0;
+  }
+}
+
 .albums-list .album-card {
   padding: 0;
   border: none;
@@ -212,6 +233,66 @@ img {
           animation-delay: 0.36s;
 }
 
+.album-placeholder:nth-child(1) {
+  -webkit-animation-delay: 0.07s;
+          animation-delay: 0.07s;
+}
+
+.album-placeholder:nth-child(2) {
+  -webkit-animation-delay: 0.14s;
+          animation-delay: 0.14s;
+}
+
+.album-placeholder:nth-child(3) {
+  -webkit-animation-delay: 0.21s;
+          animation-delay: 0.21s;
+}
+
+.album-placeholder:nth-child(4) {
+  -webkit-animation-delay: 0.28s;
+          animation-delay: 0.28s;
+}
+
+.album-placeholder:nth-child(5) {
+  -webkit-animation-delay: 0.35s;
+          animation-delay: 0.35s;
+}
+
+.album-placeholder:nth-child(6) {
+  -webkit-animation-delay: 0.42s;
+          animation-delay: 0.42s;
+}
+
+.album-placeholder:nth-child(7) {
+  -webkit-animation-delay: 0.49s;
+          animation-delay: 0.49s;
+}
+
+.album-placeholder:nth-child(8) {
+  -webkit-animation-delay: 0.56s;
+          animation-delay: 0.56s;
+}
+
+.album-placeholder:nth-child(9) {
+  -webkit-animation-delay: 0.63s;
+          animation-delay: 0.63s;
+}
+
+.album-placeholder:nth-child(10) {
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
+}
+
+.album-placeholder:nth-child(11) {
+  -webkit-animation-delay: 0.77s;
+          animation-delay: 0.77s;
+}
+
+.album-placeholder:nth-child(12) {
+  -webkit-animation-delay: 0.84s;
+          animation-delay: 0.84s;
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -321,7 +402,7 @@ img {
   color: var(--purple-600);
 }
 
-.lyrics-loader .line {
+.loader .line {
   margin-bottom: 0.5em;
   height: 0.7em;
   background-color: var(--purple-50);
@@ -332,11 +413,11 @@ img {
           animation: 1s loading ease-out infinite;
 }
 
-.lyrics-loader .line.long {
+.loader .line.long {
   width: 100%;
 }
 
-.lyrics-loader .line.short {
+.loader .line.short {
   width: 30%;
 }
 

@@ -84,6 +84,19 @@ img {
   column-gap: 1.3em;
   row-gap: 1.5em;
 
+  .album-placeholder {
+    height: 10em;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 5px;
+    animation: 1s ease-in-out pulsing infinite;
+  }
+  @keyframes pulsing {
+    50% {
+      opacity: 0;
+    }
+  }
+
   .album-card {
     padding: 0;
     border: none;
@@ -130,6 +143,13 @@ img {
   .option {
     &:nth-child(#{$i}) {
       animation-delay: $i * (0.03s);
+    }
+  }
+}
+@for $i from 1 through 12 {
+  .album-placeholder {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * (0.07s);
     }
   }
 }
@@ -203,7 +223,7 @@ img {
   }
 }
 
-.lyrics-loader {
+.loader {
   .line {
     margin-bottom: 0.5em;
     height: 0.7em;
