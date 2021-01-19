@@ -51,6 +51,7 @@ function ContextProvider({ children }) {
   /* Get random options when songs are fetched */
   useEffect(() => {
     console.log("starts randomOptions ", songs)
+    setIsLyricsLoading(true)
 
     if (songs.length > 0) {
       var randoms = []
@@ -138,7 +139,8 @@ function ContextProvider({ children }) {
     }
   }, [options])
 
-  function correctAnswer() {
+  {
+    /* function correctAnswer() {
     alert("Yay! Correct")
     nextRound()
     setCorrectCount((prev) => prev + 1)
@@ -146,6 +148,7 @@ function ContextProvider({ children }) {
   function incorrectAnswer() {
     alert("Incorrect :(")
     nextRound()
+  } */
   }
 
   function nextRound() {
@@ -181,12 +184,12 @@ function ContextProvider({ children }) {
         setOptions,
         lyrics,
         setLyrics,
-        correctAnswer,
-        incorrectAnswer,
         restartGame,
+        nextRound,
         roundCount,
         ROUNDS,
         correctCount,
+        setCorrectCount,
         gameOver,
         isLyricsLoading,
       }}

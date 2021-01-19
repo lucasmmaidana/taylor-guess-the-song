@@ -1,14 +1,29 @@
-import React, { useContext } from "react"
-import { Context } from "../Context"
+import React from "react"
 
-function Option({ song }) {
-  const { correctAnswer, incorrectAnswer } = useContext(Context)
+function Option({
+  song,
+  answeredCorrect,
+  answeredIncorrect,
+  isDisabled,
+  isAnswered,
+}) {
+  const answeredState = () => {
+    if (isAnswered) {
+      if (song.correct) {
+        return "correct"
+      } else {
+        return "incorrect"
+      }
+    }
+  }
+
   return (
     <button
       onClick={() => {
-        song.correct ? correctAnswer() : incorrectAnswer()
+        song.correct ? answeredCorrect() : answeredIncorrect()
       }}
-      className="option"
+      className={`option ${answeredState()}`}
+      disabled={isDisabled}
     >
       {song.song}
     </button>
