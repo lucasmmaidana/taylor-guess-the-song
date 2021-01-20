@@ -26,7 +26,6 @@ function Quizz() {
   const optionsList = options.map((song) => (
     <Option
       key={song.song}
-      isDisabled={isAnswered}
       isAnswered={isAnswered}
       song={song}
       answeredCorrect={answeredCorrect}
