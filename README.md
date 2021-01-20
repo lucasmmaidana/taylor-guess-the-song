@@ -1,3 +1,11 @@
+# Guess the song - Taylor Swift
+Quizz game made with React
+
+### APIs
+* [TheAudioDB.com](https://www.theaudiodb.com/api_guide.php) for albums and songs
+* [lyrics.ovh](https://lyricsovh.docs.apiary.io/) for lyrics
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
