@@ -455,6 +455,10 @@ img {
   line-height: 150%;
 }
 
+.quizz .lyrics p {
+  margin: 0;
+}
+
 .options-container h3 {
   margin-bottom: 1.3em;
 }

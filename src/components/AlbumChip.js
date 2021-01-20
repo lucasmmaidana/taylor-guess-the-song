@@ -6,7 +6,7 @@ function AlbumChip() {
   const { selectedAlbum } = useContext(Context)
 
   return (
-    <div class="album-chip">
+    <div className="album-chip">
       <img
         className="album-thumbnail"
         src={selectedAlbum.imgUrl}

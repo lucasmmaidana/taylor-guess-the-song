@@ -7,7 +7,7 @@ function AlbumCard({ album }) {
 
   return (
     <button className="album-card" onClick={() => startGame(album)}>
-      <div class="image-container">
+      <div className="image-container">
         <img className="album-cover-shadow" src={album.strAlbumThumb} alt="" />
         <img
           className="album-cover"

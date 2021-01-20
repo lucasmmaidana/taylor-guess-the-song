@@ -6,7 +6,7 @@ import AlbumCard from "../components/AlbumCard"
 import Loader from "../components/AlbumsLoader"
 
 function Home() {
-  const { albums, setAlbums, isAlbumsLoading } = useContext(Context)
+  const { ARTIST, albums, setAlbums, isAlbumsLoading } = useContext(Context)
 
   const noAlbums = [
     "Greatest Hits",
@@ -23,7 +23,7 @@ function Home() {
       <header>
         <h1>
           How well do you know <br />
-          <mark>Taylor Swift</mark>’s songs?
+          <mark>{ARTIST}</mark>’s songs?
         </h1>
         <h2>Let's find out!</h2>
       </header>

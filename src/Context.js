@@ -19,6 +19,9 @@ function ContextProvider({ children }) {
   const [retryRandomOptions, setRetryRandomOptions] = useState(0)
   const [isLyricsLoading, setIsLyricsLoading] = useState(true)
 
+  const ARTIST = "Taylor Swift"
+  const artistFormated = ARTIST.split(" ").join("_")
+
   const ROUNDS = 5
 
   function startGame(album) {
@@ -32,9 +35,9 @@ function ContextProvider({ children }) {
 
   /* Get albums when mounted */
   useEffect(() => {
-    fetch(
-      `https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=taylor_swift`
-    )
+    const url = `https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=${artistFormated}`
+    console.log(url)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setAlbums(data.album)
@@ -102,7 +105,7 @@ function ContextProvider({ children }) {
           .song.split(" ")
           .join("_")
         console.log("correcta", correctSong)
-        const url = `https://api.lyrics.ovh/v1/Taylor_Swift/${correctSong}`
+        const url = `https://api.lyrics.ovh/v1/${artistFormated}/${correctSong}`
         try {
           const res = await fetch(url)
           const data = await res.json()
@@ -175,6 +178,7 @@ function ContextProvider({ children }) {
   return (
     <Context.Provider
       value={{
+        ARTIST,
         startGame,
         gameState,
         setGameState,

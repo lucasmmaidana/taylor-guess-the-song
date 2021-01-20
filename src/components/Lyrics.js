@@ -8,17 +8,19 @@ function Lyrics({ lines }) {
   console.log("CARGANDO", isLyricsLoading)
   if (isLyricsLoading) {
     return (
-      <p className="lyrics">
+      <div className="lyrics">
         <Loader />
-      </p>
+      </div>
     )
   } else {
     return (
-      <p className="lyrics">
-        {lines[0]}
-        <br />
-        {lines[1]}
-      </p>
+      <div className="lyrics">
+        <p>
+          {lines[0]}
+          <br />
+          {lines[1]}
+        </p>
+      </div>
     )
   }
 }
