@@ -1,3 +1,5 @@
+![Project cover Guess the song](https://1.bp.blogspot.com/-QW5Z3zsVStc/YBR5h3STYFI/AAAAAAACb1Q/7vBzpdgsD0AzLpDwMRS0lPrgPY_ZpjffgCLcBGAsYHQ/s2000/social.png)
+
 # Guess the song - Taylor Swift
 Quizz game made with React
 
@@ -5,8 +7,12 @@ Quizz game made with React
 * [TheAudioDB.com](https://www.theaudiodb.com/api_guide.php) for albums and songs
 * [lyrics.ovh](https://lyricsovh.docs.apiary.io/) for lyrics
 
+>  **You can change the artist in the ARTIST constant in Context.js**
 
-# Getting Started with Create React App
+
+[**📱 Prototype in Figma**](https://www.figma.com/proto/F36sSIDponxiFMix3ALfK2/Guess-the-Song-Taylor-Swift?node-id=1%3A3&scaling=scale-down)
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
