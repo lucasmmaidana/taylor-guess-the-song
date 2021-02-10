@@ -27,32 +27,45 @@ function ContextProvider({ children }) {
   function startGame(album) {
     setGameState("Quizz")
     setSelectedAlbum({
-      id: album.idAlbum,
-      name: album.strAlbum,
-      imgUrl: album.strAlbumThumb,
+      id: album.mbid,
+      name: album.name,
+      imgUrl: album.image[0]["#text"],
     })
+    console.log("album seleccionado ", album.name)
   }
+
+  const artistId = "06HL4z0CvFAxyc27GXpf02"
+
+  const api_key =
+    "BQBRi0ia348QpSshxwPbcT1nEAZCpTDpjgQCdPnx11whTfquD-1DbcYIXDbGCY3uQayzs31XgFOZsgVeBkH0n8JZRRAovB8MO48v_6Ww4UgSQeAMokA8yvStn8WMmHpUtreuRX8q0vDDxClQSg"
 
   /* Get albums when mounted */
   useEffect(() => {
-    const url = `https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s=${artistFormated}`
-    console.log(url)
-    fetch(url)
+    fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=Taylor+Swift&api_key=7cdafb7ded210010decc01f3ba16f18a&format=json`
+    )
       .then((res) => res.json())
       .then((data) => {
-        setAlbums(data.album)
+        console.log("albums ", data)
+        setAlbums(data.topalbums.album)
         setIsAlbumsLoading(false)
       })
   }, [])
 
   /* Get songs when an album is selected */
   useEffect(() => {
-    selectedAlbum.id &&
+    if (selectedAlbum.id) {
+      const escapedAlbum = selectedAlbum.name.split(" ").join("+")
+      console.log("escapado ", escapedAlbum)
       fetch(
-        `https://theaudiodb.com/api/v1/json/1/track.php?m=${selectedAlbum.id}`
+        `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=7cdafb7ded210010decc01f3ba16f18a&artist=Taylor+Swift&album=${escapedAlbum}&format=json`
       )
         .then((res) => res.json())
-        .then((data) => setSongs(data.track))
+        .then((data) => {
+          setSongs(data.album.tracks.track)
+          console.log("songs", data.items)
+        })
+    }
   }, [selectedAlbum])
 
   /* Get random options when songs are fetched */
@@ -70,9 +83,9 @@ function ContextProvider({ children }) {
       console.log("RANDOMS ", randoms)
 
       const initialOptions = [
-        { song: songs[randoms[0]].strTrack, correct: true },
-        { song: songs[randoms[1]].strTrack, correct: false },
-        { song: songs[randoms[2]].strTrack, correct: false },
+        { song: songs[randoms[0]].name, correct: true },
+        { song: songs[randoms[1]].name, correct: false },
+        { song: songs[randoms[2]].name, correct: false },
       ]
 
       let shuffledOptions = initialOptions
@@ -144,18 +157,6 @@ function ContextProvider({ children }) {
       fetchLyrics()
     }
   }, [options])
-
-  {
-    /* function correctAnswer() {
-    alert("Yay! Correct")
-    nextRound()
-    setCorrectCount((prev) => prev + 1)
-  }
-  function incorrectAnswer() {
-    alert("Incorrect :(")
-    nextRound()
-  } */
-  }
 
   function nextRound() {
     roundCount < ROUNDS ? setRoundCount((prev) => prev + 1) : gameOver()

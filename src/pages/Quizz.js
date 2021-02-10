@@ -85,7 +85,7 @@ function Quizz() {
         </header>
         <Lyrics lines={lyrics} />
       </div>
-      <div class="options-container">
+      <div className="options-container">
         <h3>{!isLyricsLoading && optionsTitleText}</h3>
         <div className="options">
           {!isLyricsLoading && optionsList}

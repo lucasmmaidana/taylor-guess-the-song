@@ -1,11 +1,11 @@
 import React from "react"
 function LyricsLoader() {
   return (
-    <div class="loader">
-      <div class="line long"></div>
-      <div class="line short"></div>
-      <div class="line long"></div>
-      <div class="line short"></div>
+    <div className="loader">
+      <div className="line long"></div>
+      <div className="line short"></div>
+      <div className="line long"></div>
+      <div className="line short"></div>
     </div>
   )
 }

@@ -6,16 +6,18 @@ import AlbumCard from "../components/AlbumCard"
 import Loader from "../components/AlbumsLoader"
 
 function Home() {
-  const { ARTIST, albums, setAlbums, isAlbumsLoading } = useContext(Context)
+  const { ARTIST, albums, isAlbumsLoading } = useContext(Context)
 
-  const noAlbums = [
-    "Greatest Hits",
-    "Beautiful Eyes",
-    "…Ready for It?",
-    "The Taylor Swift Megamix",
-    "Everything Has Changed",
-    "The 1989 World Tour",
-    "CMT Crossroads",
+  const mainAlbums = [
+    "Fearless",
+    "Taylor Swift",
+    "Speak Now",
+    "Red",
+    "1989",
+    /* "Reputation",
+    "Lover",
+    "folklore",
+    "evermore", */
   ]
 
   return (
@@ -34,8 +36,8 @@ function Home() {
             <Loader />
           ) : (
             albums
-              .filter((album) => !noAlbums.includes(album.strAlbum))
-              .map((item) => <AlbumCard key={item.idAlbum} album={item} />)
+              .filter((album) => mainAlbums.includes(album.name))
+              .map((item) => <AlbumCard key={item.name} album={item} />)
           )}
         </div>
       </main>
